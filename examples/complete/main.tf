@@ -6,7 +6,7 @@ data "aws_availability_zones" "available" {}
 
 locals {
   region = "us-east-1"
-  name   = "<TODO>-ex-${basename(path.cwd)}"
+  name   = "ecs-ollama-ex-${basename(path.cwd)}"
 
   vpc_cidr = "10.0.0.0/16"
   azs      = slice(data.aws_availability_zones.available.names, 0, 3)
@@ -14,15 +14,15 @@ locals {
   tags = {
     Name       = local.name
     Example    = local.name
-    Repository = "https://github.com/clowdhaus/terraform-aws-<TODO>"
+    Repository = "https://github.com/thezmc/terraform-aws-ecs-ollama"
   }
 }
 
 ################################################################################
-# <TODO_EXPANDED> Module
+# ecs ollama Module
 ################################################################################
 
-module "<TODO_UNDER>" {
+module "ecs_ollama" {
   source = "../.."
 
   create = false
@@ -30,7 +30,7 @@ module "<TODO_UNDER>" {
   tags = local.tags
 }
 
-module "<TODO_UNDER>_disabled" {
+module "ecs_ollama_disabled" {
   source = "../.."
 
   create = false
