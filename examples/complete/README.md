@@ -17,38 +17,41 @@ $ terraform apply
 Note that this example may create resources which will incur monetary charges on your AWS bill. Run `terraform destroy` when you no longer need these resources.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
 ## Requirements
 
-| Name                                                                     | Version |
-| ------------------------------------------------------------------------ | ------- |
-| <a name="requirement_terraform"></a> [terraform](#requirement_terraform) | >= 1.0  |
-| <a name="requirement_aws"></a> [aws](#requirement_aws)                   | >= 4.0  |
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5 |
+| <a name="requirement_http"></a> [http](#requirement\_http) | ~> 3 |
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_http"></a> [http](#provider\_http) | ~> 3 |
 
 ## Modules
 
-| Name                                                                                              | Source                        | Version |
-| ------------------------------------------------------------------------------------------------- | ----------------------------- | ------- |
-| <a name="module_ecs_ollama"></a> [<TODO_UNDER>](#module_<TODO_UNDER>)                             | ../..                         | n/a     |
-| <a name="module_ecs_ollama_disabled"></a> [<TODO_UNDER>\_disabled](#module_<TODO_UNDER>_disabled) | ../..                         | n/a     |
-| <a name="module_vpc"></a> [vpc](#module_vpc)                                                      | terraform-aws-modules/vpc/aws | ~> 4.0  |
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_ecs_ollama"></a> [ecs\_ollama](#module\_ecs\_ollama) | ../.. | n/a |
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [http_http.my_ip](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | data source |
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_route53_zone_name"></a> [route53\_zone\_name](#input\_route53\_zone\_name) | The Route53 zone ID for the domain | `string` | n/a | yes |
 
 ## Outputs
 
 No outputs.
-
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 Apache-2.0 Licensed. See [LICENSE](https://github.com/thezmc/terraform-aws-ecs-ollama/blob/main/LICENSE).

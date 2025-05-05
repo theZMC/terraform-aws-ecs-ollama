@@ -2,14 +2,9 @@ provider "aws" {
   region = local.region
 }
 
-data "aws_availability_zones" "available" {}
-
 locals {
   region = "us-east-1"
   name   = "ecs-ollama-ex-${basename(path.cwd)}"
-
-  vpc_cidr = "10.0.0.0/16"
-  azs      = slice(data.aws_availability_zones.available.names, 0, 3)
 
   tags = {
     Name       = local.name
@@ -18,41 +13,29 @@ locals {
   }
 }
 
+data "http" "my_ip" {
+  url = "http://ifconfig.me"
+  request_headers = {
+    "User-Agent" = "curl"
+  }
+}
+
 ################################################################################
 # ecs ollama Module
 ################################################################################
 
 module "ecs_ollama" {
-  source = "../.."
+  source       = "../.."
+  project_name = local.name
+  vpc_cidr     = "172.16.100.0/24"
 
-  create = false
-
-  tags = local.tags
-}
-
-module "ecs_ollama_disabled" {
-  source = "../.."
-
-  create = false
-}
-
-################################################################################
-# Supporting Resources
-################################################################################
-
-module "vpc" {
-  source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 4.0"
-
-  name = local.name
-  cidr = local.vpc_cidr
-
-  azs             = local.azs
-  public_subnets  = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k)]
-  private_subnets = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 10)]
-
-  enable_nat_gateway = true
-  single_nat_gateway = true
+  basic_auth_username = "admin"
+  basic_auth_password = "thisisaverysecurepassword"
+  route53_zone_name   = var.route53_zone_name
+  subdomain           = "ecs-ollama"
+  alb_inbound_cidrs = [
+    "${data.http.my_ip.response_body}/32",
+  ]
 
   tags = local.tags
 }
