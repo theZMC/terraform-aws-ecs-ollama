@@ -3,12 +3,6 @@ variable "project_name" {
   type        = string
 }
 
-variable "vpc_cidr" {
-  description = "CIDR block for VPC"
-  type        = string
-  default     = "10.0.0.0/16"
-}
-
 variable "alb_inbound_cidrs" {
   description = "List of CIDR blocks to allow inbound traffic to the ALB"
   type        = list(string)
@@ -25,30 +19,32 @@ variable "subdomain" {
   type        = string
 }
 
-variable "availability_zones" {
-  description = "List of availability zones. If not provided, the first two available AZs will be used."
+variable "public_subnet_ids" {
+  description = "List of public subnet IDs to use for the load balancer"
   type        = list(string)
   default     = []
 
   validation {
-    condition     = length(var.availability_zones) == 0 || length(var.availability_zones) >= 2
-    error_message = "If specifying availability zones, you must provide at least two zones for high availability."
+    condition     = length(var.public_subnet_ids) > 1
+    error_message = "You must provide at least two public subnet IDs"
   }
 }
 
-variable "basic_auth_username" {
-  description = "Username for basic auth to use with the cloudfront distribution"
-  type        = string
-}
-
-variable "basic_auth_password" {
-  description = "Password for basic auth to use with the cloudfront distribution"
-  type        = string
+variable "private_subnet_ids" {
+  description = "List of private subnet IDs to use for the application; the first one will be used for the EC2 instance"
+  type        = list(string)
+  default     = []
 
   validation {
-    condition     = length(var.basic_auth_password) >= 12
-    error_message = "Password must be at least 12 characters long."
+    condition     = length(var.private_subnet_ids) > 0
+    error_message = "You must provide at least one private subnet ID."
   }
+}
+
+variable "use_spot" {
+  description = "Whether to use spot instances for the EC2 instance"
+  type        = bool
+  default     = false
 }
 
 variable "gpu_brand" {
@@ -62,15 +58,10 @@ variable "gpu_brand" {
   }
 }
 
-variable "gpu_memory_mb" {
-  description = "Minimum amount of GPU memory in MB to use for EC2 instances"
-  type        = number
-  default     = 16384
-
-  validation {
-    condition     = var.gpu_memory_mb >= 8192
-    error_message = "GPU memory must be at least 8192 MB."
-  }
+variable "ollama_model" {
+  description = "Ollama model to use for the application"
+  type        = string
+  default     = "llama3:8b"
 }
 
 variable "tags" {

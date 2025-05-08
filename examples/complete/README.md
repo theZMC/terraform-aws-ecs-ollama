@@ -29,6 +29,7 @@ Note that this example may create resources which will incur monetary charges on
 
 | Name | Version |
 |------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 5 |
 | <a name="provider_http"></a> [http](#provider\_http) | ~> 3 |
 
 ## Modules
@@ -36,11 +37,13 @@ Note that this example may create resources which will incur monetary charges on
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_ecs_ollama"></a> [ecs\_ollama](#module\_ecs\_ollama) | ../.. | n/a |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | ~> 5 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
 | [http_http.my_ip](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | data source |
 
 ## Inputs
