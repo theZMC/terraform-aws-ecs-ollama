@@ -333,6 +333,8 @@ module "ollama_ecs_service" {
   deployment_minimum_healthy_percent = 0
   deployment_maximum_percent         = 100
 
+  enable_execute_command = var.allow_ecs_exec
+
   subnet_ids  = var.private_subnet_ids
   launch_type = "EC2"
 

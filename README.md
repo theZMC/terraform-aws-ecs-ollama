@@ -75,6 +75,7 @@ Examples codified under the [`examples`](https://github.com/thezmc/terraform-aws
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_alb_inbound_cidrs"></a> [alb\_inbound\_cidrs](#input\_alb\_inbound\_cidrs) | List of CIDR blocks to allow inbound traffic to the ALB | `list(string)` | `[]` | no |
+| <a name="input_allow_ecs_exec"></a> [allow\_ecs\_exec](#input\_allow\_ecs\_exec) | Whether to allow ECS exec for the application | `bool` | `false` | no |
 | <a name="input_gpu_brand"></a> [gpu\_brand](#input\_gpu\_brand) | GPU brand to use for EC2 instances | `string` | `"nvidia"` | no |
 | <a name="input_ollama_model"></a> [ollama\_model](#input\_ollama\_model) | Ollama model to use for the application | `string` | `"llama3:8b"` | no |
 | <a name="input_private_subnet_ids"></a> [private\_subnet\_ids](#input\_private\_subnet\_ids) | List of private subnet IDs to use for the application; the first one will be used for the EC2 instance | `list(string)` | `[]` | no |

@@ -69,3 +69,9 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "allow_ecs_exec" {
+  description = "Whether to allow ECS exec for the application"
+  type        = bool
+  default     = false
+}
